@@ -12,7 +12,11 @@ main() {
         {
             echo ""
             echo "# tmux-bash-history"
-            echo "$source_cmd"
+            echo "if [[ -n \"\$TMUX\" ]]; then"
+            echo "    # Optionally set a custom bash history home directory:"
+            echo "    # tmux set -g @bash-history-home \"~/path/to/custom/dir\""
+            echo "    $source_cmd"
+            echo "fi"
         } >>"$rc_file"
     fi
 }
