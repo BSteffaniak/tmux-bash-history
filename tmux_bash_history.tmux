@@ -5,7 +5,7 @@ SCRIPTS_DIR="$CURRENT_DIR/scripts"
 
 main() {
     local script_location="$SCRIPTS_DIR/restore_history.sh"
-    local source_cmd=". $script_location"
+    local source_cmd="[ -f \"$script_location\" ] && . $script_location"
     local rc_file="$HOME/.bashrc"
 
     if ! grep -q "$script_location" "$rc_file"; then
