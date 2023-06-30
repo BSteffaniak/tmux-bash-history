@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
-default_bash_history_home="$HOME/.bash_history.d"
-bash_history_home=$TMUX_BASH_HISTORY_HOME
-[[ -z "$bash_history_home" ]] && bash_history_home="$default_bash_history_home"
+CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-[[ ! -d "$bash_history_home" ]] && mkdir -p "$bash_history_home"
+source "$CURRENT_DIR/tmux_helpers.sh"
+
+bash_history_home_option="@bash-history-home"
+default_bash_history_home="$HOME/.bash_history.d"
+bash_history_home="$(get_tmux_option "$bash_history_home_option" "$default_bash_history_home")"
 
 function getSanitizedFileName() {
     local pane_id=$1
