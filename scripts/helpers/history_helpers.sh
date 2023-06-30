@@ -1,6 +1,12 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-HISTS_DIR=$HOME/.bash_history.d
+CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+source "$CURRENT_DIR/tmux_helpers.sh"
+
+bash_history_home_option="@bash-history-home"
+default_bash_history_home="$HOME/.bash_history.d"
+bash_history_home="$(get_tmux_option "$bash_history_home_option" "$default_bash_history_home")"
 
 function getSanitizedFileName() {
     local pane_id=$1
@@ -33,9 +39,9 @@ function getHistFile() {
     local pane_index=$5
 
     if [ -n "${pane_id}" ]; then
-        echo "${HISTS_DIR}/bash_history_tmux_$(getSanitizedFileName "$pane_id" "$session_name" "$window_name" "$window_number" "$pane_index")"
+        echo "${bash_history_home}/bash_history_tmux_$(getSanitizedFileName "$pane_id" "$session_name" "$window_name" "$window_number" "$pane_index")"
     else
-        echo "${HISTS_DIR}/bash_history_no_tmux"
+        echo "${bash_history_home}/bash_history_no_tmux"
     fi
 }
 
@@ -47,8 +53,8 @@ function getCmdFile() {
     local pane_index=$5
 
     if [ -n "${pane_id}" ]; then
-        echo "${HISTS_DIR}/bash_cmd_tmux_$(getSanitizedFileName "$pane_id" "$session_name" "$window_name" "$window_number" "$pane_index")"
+        echo "${bash_history_home}/bash_cmd_tmux_$(getSanitizedFileName "$pane_id" "$session_name" "$window_name" "$window_number" "$pane_index")"
     else
-        echo "${HISTS_DIR}/bash_cmd_no_tmux"
+        echo "${bash_history_home}/bash_cmd_no_tmux"
     fi
 }
