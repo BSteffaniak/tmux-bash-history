@@ -4,7 +4,7 @@ default_bash_history_home="$HOME/.bash_history.d"
 bash_history_home=$TMUX_BASH_HISTORY_HOME
 [[ -z "$bash_history_home" ]] && bash_history_home="$default_bash_history_home"
 
-mkdir -p "$bash_history_home"
+[[ ! -d "$bash_history_home" ]] && mkdir -p "$bash_history_home"
 
 function getSanitizedFileName() {
     local pane_id=$1
