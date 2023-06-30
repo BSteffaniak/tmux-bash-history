@@ -18,7 +18,7 @@ mkdir -p "${HISTS_DIR}"
 
 CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-source "$CURRENT_DIR/history_helpers.sh"
+source "$CURRENT_DIR/helpers/history_helpers.sh"
 
 function initHist() {
     echo "" >"$(getCmdFile "$TMUX_PANE")"
