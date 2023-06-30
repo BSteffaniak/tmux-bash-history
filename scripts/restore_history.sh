@@ -21,6 +21,8 @@ CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$CURRENT_DIR/helpers/history_helpers.sh"
 
 function initHist() {
+    [[ ! -f "$bash_history_home" ]] && return
+
     echo "" >"$(getCmdFile "$TMUX_PANE")"
 
     HISTFILE=$(getHistFile "$TMUX_PANE")
@@ -51,6 +53,7 @@ function process_command() {
     if [ -n "$NO_LOG_COMMAND" ] || [ "$BASH_COMMAND" == "export NO_LOG_COMMAND='true'" ]; then
         return
     fi
+    [[ ! -f "$bash_history_home" ]] && return
 
     echo "$BASH_COMMAND" >"$(getCmdFile "$TMUX_PANE")"
 }
